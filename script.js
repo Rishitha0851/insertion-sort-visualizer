@@ -1,29 +1,31 @@
 let arr = [];
 
-function generateBars(){
+function createArray(){
 
     const input =
-    document.getElementById("numbers").value;
+    document.getElementById("array-input").value;
 
     arr = input.split(",").map(Number);
 
-    displayBars(arr);
+    displayBars();
 }
 
-function displayBars(array){
+function displayBars(){
 
     const container =
     document.getElementById("array-container");
 
     container.innerHTML = "";
 
-    array.forEach(value => {
+    arr.forEach(value => {
 
-        const bar = document.createElement("div");
+        const bar =
+        document.createElement("div");
 
         bar.classList.add("bar");
 
-        bar.style.height = value * 3 + "px";
+        bar.style.height =
+        value * 3 + "px";
 
         bar.innerHTML = value;
 
@@ -31,54 +33,93 @@ function displayBars(array){
     });
 }
 
-async function insertionSort(){
+async function quickSortStart(){
+
+    if(arr.length === 0){
+
+        alert("Please enter array!");
+
+        return;
+    }
+
+    await quickSort(0,arr.length-1);
+
+    document.getElementById("status").innerHTML =
+    "Array Sorted Successfully!";
+}
+
+async function quickSort(low,high){
+
+    if(low < high){
+
+        let pi =
+        await partition(low,high);
+
+        await quickSort(low,pi-1);
+
+        await quickSort(pi+1,high);
+    }
+}
+
+async function partition(low,high){
 
     const bars =
     document.getElementsByClassName("bar");
 
-    for(let i=1;i<arr.length;i++){
+    let pivot = arr[high];
 
-        let key = arr[i];
+    bars[high].style.background =
+    "linear-gradient(to top,#facc15,#fde68a)";
 
-        let j = i - 1;
+    let i = low - 1;
 
-        bars[i].style.background = "red";
+    for(let j=low;j<high;j++){
 
-        await sleep(700);
+        bars[j].style.background =
+        "linear-gradient(to top,#38bdf8,#2563eb)";
 
-        while(j >= 0 && arr[j] > key){
+        await sleep(600);
 
-            bars[j].style.background = "yellow";
+        if(arr[j] < pivot){
 
-            await sleep(700);
+            i++;
 
-            arr[j+1] = arr[j];
+            [arr[i],arr[j]] =
+            [arr[j],arr[i]];
 
-            bars[j+1].style.height =
-            arr[j] * 3 + "px";
+            updateBars();
 
-            bars[j+1].innerHTML = arr[j];
-
-            j--;
-
-            await sleep(700);
+            await sleep(600);
         }
 
-        arr[j+1] = key;
-
-        bars[j+1].style.height =
-        key * 3 + "px";
-
-        bars[j+1].innerHTML = key;
-
-        for(let k=0;k<bars.length;k++){
-
-            bars[k].style.background = "cyan";
-        }
+        bars[j].style.background =
+        "linear-gradient(to top,#2563eb,#60a5fa)";
     }
 
-    document.getElementById("result").innerHTML =
-    "Array Sorted Successfully!";
+    [arr[i+1],arr[high]] =
+    [arr[high],arr[i+1]];
+
+    updateBars();
+
+    bars[i+1].style.background =
+    "linear-gradient(to top,#facc15,#fde68a)";
+
+    return i + 1;
+}
+
+function updateBars(){
+
+    const bars =
+    document.getElementsByClassName("bar");
+
+    for(let i=0;i<arr.length;i++){
+
+        bars[i].style.height =
+        arr[i] * 3 + "px";
+
+        bars[i].innerHTML =
+        arr[i];
+    }
 }
 
 function sleep(ms){
