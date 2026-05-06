@@ -1,37 +1,81 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Insertion Sort Visualizer</title>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+    <title>Quick Sort Visualizer Game</title>
 
     <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
-    <h1>Insertion Sort Visualizer</h1>
+    <div class="background-circle one"></div>
+    <div class="background-circle two"></div>
 
-    <div class="controls">
+    <div class="container">
 
-        <input type="text" id="numbers"
-        placeholder="Enter numbers like 5,3,8,1,9">
+        <h1>Quick Sort Visualizer</h1>
 
-        <br>
+        <p class="subtitle">
+            Interactive Sorting Game Using Quick Sort Algorithm
+        </p>
 
-        <button onclick="generateBars()">
-            Generate
-        </button>
+        <div class="input-section">
 
-        <button onclick="insertionSort()">
-            Start Sorting
-        </button>
+            <input
+            type="text"
+            id="array-input"
+            placeholder="Enter numbers like 45,12,78,23,9">
+
+            <button onclick="createArray()">
+                Generate Array
+            </button>
+
+            <button onclick="quickSortStart()">
+                Start Sorting
+            </button>
+
+        </div>
+
+        <div id="array-container"></div>
+
+        <div id="status"></div>
+
+        <div class="info-box">
+
+            <div class="card">
+                <h2>Algorithm</h2>
+                <p>Quick Sort</p>
+            </div>
+
+            <div class="card">
+                <h2>Best Case</h2>
+                <p>O(n log n)</p>
+            </div>
+
+            <div class="card">
+                <h2>Worst Case</h2>
+                <p>O(n²)</p>
+            </div>
+
+            <div class="card">
+                <h2>Technique</h2>
+                <p>Divide & Conquer</p>
+            </div>
+
+        </div>
 
     </div>
-
-    <div id="array-container"></div>
-
-    <div id="result"></div>
 
     <script src="script.js"></script>
 
 </body>
+
 </html>
